@@ -30,7 +30,8 @@
 
 ---
 
-🏗️ **Pyramid Memory Bank **  
+🏗️  **Pyramid Memory Bank **
+
 To tackle the challenges of infinite video streams, we propose a **multi-layered Pyramid Memory Bank** that balances **spatial and temporal information**:  
 
 1. **Spatial Anchors**: The lower layers retain high-resolution features to preserve fine-grained spatial cues, capturing key frames as "spatial anchors" with a lower sampling rate.
@@ -39,7 +40,8 @@ To tackle the challenges of infinite video streams, we propose a **multi-layered
 
 ---
 
-🎯 **Offline-to-Online Learning Paradigm**  
+🎯 **Offline-to-Online Learning Paradigm** 
+
 A novel training strategy designed for online video streams:  
 
 - **Interleaved Dialogue Tuning**: Combines offline video data with online instruction tuning in a dialogue format.  
