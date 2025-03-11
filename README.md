@@ -2,7 +2,7 @@
 # <img src="assets/videochat_logo.png" style="vertical-align: -10px;" :height="50px" width="50px">VideoChat-Online
 <div style="text-align: center;">
     <h2 style="display: inline-block; vertical-align: middle; margin-left: 10px; margin-bottom: 0;">
-        <a href="https://videochat-online.github.io">[CVPR2025] Online Video Understanding: OVBench and Memory-Augmented Method</a>
+        <a href="https://videochat-online.github.io">[CVPR2025] Online Video Understanding: OVBench and VideoChat-Online</a>
     </h2>
 </div>
 
@@ -26,7 +26,7 @@
 
 - **Memory, Perception, and Prediction of Temporal Contexts**: Questions are framed to reference the present state of entities, requiring models to memorize/perceive/predict past/present/future temporal contexts over time.
 - **Dynamic Spatio-temporal Interaction**: The benchmark demands precise real-time interactions with video content, where actions, objects, and events must be understood in the context of their spatial and temporal relationships.
-- **Contextual Awareness at Specific Moments**: Real-time questions are contextual, changing based on the specific timestamp at which they are asked, requiring a deep understanding of how temporal context evolve over time.
+- **Contextual Awareness at Specific Moments**: Real-time questions are contextual, changing based on the specific timestamp they are asked, requiring a deep understanding of how temporal context evolves.
 
 ---
 
@@ -34,8 +34,8 @@
 
 To tackle the challenges of infinite video streams, we propose a **multi-layered Pyramid Memory Bank** that balances **spatial and temporal information**:  
 
-1. **Spatial Anchors**: The lower layers retain high-resolution features to preserve fine-grained spatial cues, capturing key frames as "spatial anchors" with a lower sampling rate.
-2. **Progressive Abstraction**: As the layers progress, spatial resolution decays  while temporal sampling rate grows proportionally , forming an abstract representation of fine-grained long-short-term patterns.
+1. **Spatial Anchors**: The lower layers retain high-resolution features to preserve fine-grained spatial cues, capturing keyframes as "spatial anchors" with a lower sampling rate.
+2. **Progressive Abstraction**: As the layers progress, spatial resolution decays  while the temporal sampling rate grows proportionally, forming an abstract representation of fine-grained long-short-term patterns.
 3. **Dynamic Eviction**: A dynamic eviction mechanism detects temporal redundancy via similarity, combined with pooling for spatial compression, improving storage efficiency.
 
 ---
