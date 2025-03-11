@@ -1,8 +1,11 @@
 
-# <img src="assets/videochat_logo.png" style="vertical-align: -10px;" :height="50px" width="50px">VideoChat-Online 
-<h2 style="text-align: center;">
-    <a href="https://videochat-online.github.io">CVPR2025 | Online Video Understanding: OVBench and Memory-Augmented Method</a>
-</h2>
+# <img src="assets/videochat_logo.png" style="vertical-align: -10px;" :height="50px" width="50px">VideoChat-Online
+<div style="text-align: center;">
+    <h2 style="display: inline-block; vertical-align: middle; margin-left: 10px; margin-bottom: 0;">
+        <a href="https://videochat-online.github.io">[CVPR2025] Online Video Understanding: OVBench and Memory-Augmented Method</a>
+    </h2>
+</div>
+
 <p align="center">
   <a href="https://arxiv.org/abs/2501.00584"><img src="https://img.shields.io/badge/arXiv-2501.00584-b31b1b.svg" alt="arXiv"></a>
   <a href="https://huggingface.co/datasets/MCG-NJU/VideoChatOnline-IT"><img src="https://img.shields.io/badge/🤗%20Dataset-VideoChatOnline--IT-ffca28" alt="Dataset"></a>
@@ -70,7 +73,7 @@ To launch the demo, use the following script:
 bash gradio_demo.sh
 ```
 
-# 📊 Evaluation on [OVBench]([MCG-NJU/OVBench · Datasets at Hugging Face](https://huggingface.co/datasets/MCG-NJU/OVBench))
+# 📊 Evaluation on [OVBench](https://huggingface.co/datasets/MCG-NJU/OVBench)
 
 <div style="text-align: center;">
     <div style="display: inline-block; margin-right: 10px;">
