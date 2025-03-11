@@ -41,7 +41,7 @@ The anno_data file provides the paths for different types of datasets:
 ```
 For specific data json format, we support the data reading formats of `LLaVA` and `VideoChat2-IT`.
 
-# 🔄 [Online SFT Data][https://huggingface.co/datasets/MCG-NJU/VideoChatOnline-IT] Download
+# 🔄 [Online SFT Data](https://huggingface.co/datasets/MCG-NJU/VideoChatOnline-IT) Download
 
 For the construction format of online data, please refer to [VideoChatOnline-IT](https://huggingface.co/datasets/MCG-NJU/VideoChatOnline-IT)
 
@@ -77,10 +77,10 @@ bash gradio_demo.sh
 
 <div style="text-align: center;">
     <div style="display: inline-block; margin-right: 10px;">
-        <img src="D:\Documents\hzp\VideoChat-Online\VideoChat-Online\assets\spatial_perception.png" alt="image-20250311180653255" style="zoom: 28%;" />
+        <img src="assets/spatial_perception.png" alt="image-20250311180653255" style="zoom: 28%;" />
     </div>
     <div style="display: inline-block;">
-        <img src="D:\Documents\hzp\VideoChat-Online\VideoChat-Online\assets\past_memory.png" alt="image-20250311184752494" style="zoom: 33%;" />
+        <img src="assets/past_memory.png" alt="image-20250311184752494" style="zoom: 33%;" />
     </div>
 </div>
 
