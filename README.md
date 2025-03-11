@@ -75,7 +75,7 @@ For specific data json format, we support the data reading formats of `LLaVA` an
 
 For the construction format of online data, please refer to [VideoChatOnline-IT](https://huggingface.co/datasets/MCG-NJU/VideoChatOnline-IT)
 
-# 📈 Evaluations Results
+# 📈 Evaluations Results on  VideoChatOnline-4B
 | Benchmark          | Result                                                 |
 |--------------------|--------------------------------------------------------|
 | **OVBench**        | 54.9                                                   |
@@ -105,6 +105,13 @@ bash gradio_demo.sh
 
 # 📊 Evaluation on [OVBench](https://huggingface.co/datasets/MCG-NJU/OVBench)
 
+```bash
+#Sliding Window Setting:
+bash shell/eval/online_bench_sliding_window.sh
+#Streaming Setting:
+bash shell/eval/online_bench_stream.sh
+```
+
 <div style="text-align: center;">
     <div style="display: inline-block; margin-right: 10px;">
         <img src="assets/spatial_perception.png" alt="image-20250311180653255" style="zoom: 28%;" />
@@ -113,11 +120,3 @@ bash gradio_demo.sh
         <img src="assets/past_memory.png" alt="image-20250311184752494" style="zoom: 33%;" />
     </div>
 </div>
-
-```bash
-#Sliding Window Setting:
-bash shell/eval/online_bench_sliding_window.sh
-#Streaming Setting:
-bash shell/eval/online_bench_stream.sh
-```
-
