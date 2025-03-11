@@ -37,10 +37,6 @@ The anno_data file provides the paths for different types of datasets:
 ```
 For specific data json format, we support the data reading formats of `LLaVA` and `VideoChat2-IT`.
 
-
-annotation: 
-data_root: Root path of the data.
-
 # 🔄 Online SFT Data Download
 
 For the construction format of online data, please refer to [VideoChatOnline-IT](https://huggingface.co/datasets/MCG-NJU/VideoChatOnline-IT)
