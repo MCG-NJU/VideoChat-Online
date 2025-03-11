@@ -3,17 +3,16 @@
 ### CVPR2025 | Online Video Understanding: OVBench and Memory-Augmented Method
 
 <p align="center">
-    <img src="assets/comparison.png" width="128000px" style="margin: 20px 0">
-</p>
-
-
-<p align="center">
   <a href="https://arxiv.org/abs/2501.00584"><img src="https://img.shields.io/badge/arXiv-2501.00584-b31b1b.svg" alt="arXiv"></a>
   <a href="https://huggingface.co/datasets/MCG-NJU/VideoChatOnline-IT"><img src="https://img.shields.io/badge/🤗%20Dataset-VideoChatOnline--IT-ffca28" alt="Dataset"></a>
   <a href="https://huggingface.co/datasets/MCG-NJU/VideoChatOnline"><img src="https://img.shields.io/badge/🤗%20Model-VideoChatOnline-4dc0b0" alt="Model"></a>
   <a href="https://videochat-online.github.io/"><img src="https://img.shields.io/badge/🏆%20Leaderboard-Ranking-8b5cf6" alt="Leaderboard"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License"></a>
 </p>
+<p align="center">
+    <img src="assets/comparison.png" width="128000px" style="margin: 20px 0">
+</p>
+
 ## To-Do List
 
 - [ ] Model checkpoint
