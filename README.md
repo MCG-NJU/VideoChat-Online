@@ -17,7 +17,35 @@
     <img src="assets/comparison.png" width="128000px" style="margin: 20px 0">
 </p>
 
-## To-Do List
+
+
+# 📝 **Highlights**
+
+🚀 **Introducing OVBench**
+ OVBench is a benchmark tailored for **real-time video understanding**:
+
+- **Memory, Perception, and Prediction of Temporal Contexts**: Questions are framed to reference the present state of entities, requiring models to memorize/perceive/predict past/present/future temporal contexts over time.
+- **Dynamic Spatio-temporal Interaction**: The benchmark demands precise real-time interactions with video content, where actions, objects, and events must be understood in the context of their spatial and temporal relationships.
+- **Contextual Awareness at Specific Moments**: Real-time questions are contextual, changing based on the specific timestamp at which they are asked, requiring a deep understanding of how temporal context evolve over time.
+
+---
+
+🏗️ **Pyramid Memory Bank **  
+To tackle the challenges of infinite video streams, we propose a **multi-layered Pyramid Memory Bank** that balances **spatial and temporal information**:  
+
+1. **Spatial Anchors**: The lower layers retain high-resolution features to preserve fine-grained spatial cues, capturing key frames as "spatial anchors" with a lower sampling rate.
+2. **Progressive Abstraction**: As the layers progress, spatial resolution decays  while temporal sampling rate grows proportionally , forming an abstract representation of fine-grained long-short-term patterns.
+3. **Dynamic Eviction**: A dynamic eviction mechanism detects temporal redundancy via similarity, combined with pooling for spatial compression, improving storage efficiency.
+
+---
+
+🎯 **Offline-to-Online Learning Paradigm**  
+A novel training strategy designed for online video streams:  
+
+- **Interleaved Dialogue Tuning**: Combines offline video data with online instruction tuning in a dialogue format.  
+- **Progressive Learning**: Bridges offline and online video understanding, enhancing real-time adaptability.  
+
+## To-Do
 
 - [ ] Model checkpoint Upload
 - [ ] More comprehensive demo
