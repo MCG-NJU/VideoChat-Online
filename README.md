@@ -30,7 +30,7 @@
 
 ---
 
-🏗️  **Pyramid Memory Bank **
+🏗️  **Pyramid Memory Bank**
 
 To tackle the challenges of infinite video streams, we propose a **multi-layered Pyramid Memory Bank** that balances **spatial and temporal information**:  
 
