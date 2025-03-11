@@ -1,0 +1,69 @@
+{
+    "coin_sl_train": {
+        "annotation": "anno_online/step_localization/coin/coin_v3.json",
+        "data_root": "/workspace/data/datasets/COIN/videos",
+        "data_augment": false,
+        "repeat_time": 1
+    },
+    "anet_dvc_train": {
+        "annotation": "anno_online/dense_video_captioning/anet/anet_v3.json",
+        "data_root": "/workspace/data/datasets/activitynet/videos",
+        "data_augment": false,
+        "repeat_time": 1
+    },
+    "youcook_dvc_train": {
+        "annotation": "anno_online/dense_video_captioning/youcook2/youcook2_v3_complete.json",
+        "data_root": "/workspace/data/datasets/youcook2/training",
+        "data_augment": false,
+        "repeat_time": 1
+    },
+    "charades_tg_train": {
+        "annotation": "anno_online/temporal_grounding/charades/charades_v3.json",
+        "data_root": "/workspace/data/datasets/Charades_v1/",
+        "data_augment": false,
+        "repeat_time": 1
+    },
+    "didemo_tg_train": {
+        "annotation": "anno_online/temporal_grounding/didemo/didemo_v3.json",
+        "data_root": "/workspace/data/datasets/didemo/train_videos/",
+        "data_augment": false,
+        "repeat_time": 1
+    },
+    "queryd_tg_train": {
+        "annotation": "anno_online/temporal_grounding/queryd/queryd_v3.json",
+        "data_root": "/workspace/data/datasets/QuerYD/videos",
+        "data_augment": false,
+        "repeat_time": 1
+    },
+    "ava_stad_train": {
+        "annotation": "anno_online/spatial_temporal_action_localization/ava_v3.json",
+        "data_root": "/workspace/data/datasets/AVA_Actions/raw/trainval",
+        "data_augment": false,
+        "repeat_time": 1
+    },
+    "hirest_tg_train": {
+        "annotation": "anno_online/temporal_grounding/hirest/hirest_v3_complete.json",
+        "data_root": "/workspace/data/datasets/hirest/train",
+        "data_augment": false,
+        "repeat_time": 1
+    },
+    "hirest_sl_train": {
+        "annotation": "anno_online/step_localization/hirest_step/hirest_step_v3_complete.json",
+        "data_root": "/workspace/data/datasets/hirest/train",
+        "data_augment": false,
+        "repeat_time": 1
+    },
+    "got10k_track_train": {
+        "annotation": "anno_online/object_tracking/got10k_dynamic.json",
+        "data_root": "/workspace/data/datasets/got10k/got10k_full/train",
+        "data_augment": false,
+        "repeat_time": 1
+    },
+    "lasot_track_train": {
+        "annotation": "anno_online/object_tracking/lasot_dynamic.json",
+        "data_root": "/workspace/data/datasets/LaSOT",
+        "data_augment": false,
+        "repeat_time": 1
+    }
+}
+
