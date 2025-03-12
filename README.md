@@ -63,6 +63,10 @@ pip install -r requirements.txt
 
 To launch the demo, use the following script:
 
+
+https://github.com/user-attachments/assets/4cdc3e57-3dae-4656-8366-a10cc6648884
+
+
 ```bash
 bash gradio_demo.sh
 ```
