@@ -1,6 +1,7 @@
 import re
 import threading
 import gradio as gr
+from sympy import content
 import torch
 from PIL import Image
 import numpy as np
@@ -13,24 +14,40 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig
 from internvl.model.videochat_online import (
     VideoChatOnline_IT,
     VideoChatOnline_Stream,
+    InternVLChatConfig,
 )
 
 # Configuration and model loading
-model_name = "work_dirs/online_offline_image"
-config = AutoConfig.from_pretrained("OpenGVLab/InternVL2-4B", trust_remote_code=True)
+model_name = "work_dirs/VideoChatOnline_Stage2"
 tokenizer = AutoTokenizer.from_pretrained(
     model_name, add_eos_token=False, trust_remote_code=True, use_fast=False
 )
-model = VideoChatOnline_IT.from_pretrained(
-    model_name,
-    config=config,
-    torch_dtype=torch.bfloat16,
-    attn_implementation="flash_attention_2",
-    low_cpu_mem_usage=True,
-    trust_remote_code=True,
+config = InternVLChatConfig.from_pretrained(
+        model_name, trust_remote_code=True
+    )
+model = (
+        VideoChatOnline_IT.from_pretrained(
+            model_name,
+            config=config,
+            torch_dtype=torch.bfloat16,
+            attn_implementation="flash_attention_2",
+            low_cpu_mem_usage=True,
+            trust_remote_code=True,
+        )
+        .eval()
+        .cuda()
 )
+prompt = "Carefully watch the video and pay attention to the cause and sequence of events, the detail and movement of objects, and the action and pose of persons. Based on your observations, select the best option that accurately addresses the question.\n"
+model.system_message = prompt
 model.to(torch.bfloat16).to(f"cuda:{0}").eval()
 
+
+generation_config = dict(
+        max_new_tokens=256, 
+        do_sample=False, 
+        num_beams=1, 
+        temperature=0.95
+    )
 # Video preprocessing function
 IMAGENET_MEAN = (0.485, 0.456, 0.406)
 IMAGENET_STD = (0.229, 0.224, 0.225)
@@ -72,6 +89,7 @@ def load_video(video_path, fps=1, input_size=448):
 class HistorySynchronizer:
     def __init__(self):
         self.history = []
+        self.chat_history = []
         self.frame_count = 0
 
     def set_history(self, history):
@@ -79,20 +97,32 @@ class HistorySynchronizer:
 
     def get_history(self):
         return self.history
+    
+    def get_chat_history(self):
+        return self.chat_history
 
     def clean_history_item(self, item):
         # 使用正则表达式移除 "FrameX: <image>" 形式的文本
         return re.sub(r"Frame\d+: <image>", "", item).strip()
 
-    def get_clean_history(self):
-        """
-        返回对模型透明的历史记录，移除 FrameX: <image> 这样的字样。
-        """
+    #def get_clean_history(self):
+    #    """
+    #    返回对模型透明的历史记录，移除 FrameX: <image> 这样的字样。
+    #    """
+#
+    #    return [[self.clean_history_item(item[0]), item[1]] for item in self.history]
 
-        return [[self.clean_history_item(item[0]), item[1]] for item in self.history]
+    def update(self, new_msg):
+        new_msg["content"] = self.clean_history_item(new_msg["content"])
+        new_msg = gr.ChatMessage(role=new_msg["role"], content=new_msg["content"])
+        if self.chat_history:
+            self.chat_history.append(new_msg)
+        else:
+            self.chat_history = [new_msg]
 
     def reset(self):
         self.history = []
+        self.chat_history = []
         self.frame_count = 0
 
 
@@ -109,31 +139,41 @@ def generate_answer(question, video_frame_data):
     )
     history_synchronizer.frame_count = len(video_frame_data)
     full_question = video_prefix + question
-    generation_config = dict(
-        max_new_tokens=256, do_sample=True, num_beams=5, temperature=0.95
-    )
+    
 
     pixel_values = video_frame_data.to(model.device).to(model.dtype)
 
-    # Use model's chat method if available
+    # 添加用户问题到历史并立即显示
+    history_synchronizer.update({"role": "user", "content": question})
+    current_chat_history = history_synchronizer.get_chat_history()
+    
+    # 添加临时"Thinking..."消息到前端显示（不保存到真实历史）
+    temp_chat = current_chat_history.copy()
+    temp_chat.append(gr.ChatMessage(role="assistant", content="Generating..."))
+    yield temp_chat  # 第一次返回：用户问题 + Thinking...
+
+    # 生成回答（使用真实历史，不含临时消息）
     llm_start_time = time.perf_counter()
     llm_message, history = model.chat(
         tokenizer,
         pixel_values,
         full_question,
         generation_config,
-        history=history_synchronizer.get_history(),  # 使用当前历史记录
+        history=history_synchronizer.get_history(),  # 真实历史
         return_history=True,
-        verbose=True,
+        verbose=False,
     )
     llm_end_time = time.perf_counter()
     print("LLM Latency:", llm_end_time - llm_start_time)
 
-    # Update history
+    # 更新真实历史记录
     history_synchronizer.set_history(history)
+    history_synchronizer.update({"role": "assistant", "content": llm_message})
 
-    # Format the response for gr.Chatbot
-    return history_synchronizer.get_clean_history()  # 返回完整的聊天历史
+    # 返回最终结果（用户问题 + 真实回答）
+    yield history_synchronizer.get_chat_history()
+
+
 
 
 # Global state for pause/resume
@@ -141,7 +181,7 @@ pause_event = threading.Event()
 pause_event.set()  # Start with video playing
 
 
-def start_chat(video_path, frame_interval, history):
+def start_chat(video_path, frame_interval, current_history):
     if not video_path:
         raise gr.Error("Please upload a video file.")
 
@@ -150,9 +190,12 @@ def start_chat(video_path, frame_interval, history):
         video_path, fps=1 / frame_interval
     )
 
-    # Reset history
-    history_synchronizer.reset()
-    history = history_synchronizer.get_clean_history()
+    # Keep the existing chat history if there is one
+    if current_history:
+        history = current_history
+    else:
+        history_synchronizer.reset()
+        history = history_synchronizer.get_chat_history()
 
     # Iterate through frames
     for idx, (frame, original_frame, timestamp) in enumerate(
@@ -161,23 +204,26 @@ def start_chat(video_path, frame_interval, history):
         if not pause_event.is_set():
             pause_event.wait()  # Pause processing
 
-        # Display current frame and time
-        yield timestamp, original_frame, pixel_values[: idx + 1], history
+        # Get the latest chat history before yielding
+        current_chat_history = history_synchronizer.get_chat_history()
+        
+        # Display current frame, time, and maintain chat history
+        yield timestamp, original_frame, pixel_values[: idx + 1], current_chat_history
 
         # Simulate frame delay
         time.sleep(frame_interval)
 
-    # End of video
-    yield timestamps[-1], original_frames[-1], pixel_values, history
+    # End of video - use the latest chat history
+    yield timestamps[-1], original_frames[-1], pixel_values, history_synchronizer.get_chat_history()
 
 
 def toggle_pause():
     if pause_event.is_set():
         pause_event.clear()  # Pause processing
-        return "Resume Video"
+        return "Resume Video", history_synchronizer.get_chat_history()
     else:
         pause_event.set()  # Resume processing
-        return "Pause Video"
+        return "Pause Video", history_synchronizer.get_chat_history()
 
 
 def stop_chat():
@@ -188,75 +234,44 @@ def stop_chat():
 
 # Gradio UI layout
 def build_ui():
-
     with gr.Blocks() as demo:
-        # State to store pixel_values
+        # Previous state definitions remain the same
         pixel_values_state = gr.State()
 
-        # Title and description
-        gr.Markdown(
-            """
-            # VideoChat Online Demo
-            This interface allows you to upload a video, play/pause it, and ask questions about the video content.
-            The model will generate answers based on the frames up to the paused time.
-            """
-        )
-
-        # Instructions
-        with gr.Accordion("How to Use", open=False):
-            gr.Markdown(
-                """
-                ### Steps:
-                1. **Upload a Video**: Click the "Upload Video" button to select a video file.
-                2. **Set Frame Interval**: Adjust the slider to control the frame rate (frames per second).
-                3. **Start Chat**: Click the "Start Chat" button to begin video playback.
-                4. **Pause/Resume**: Use the "Pause Video" button to pause the video and ask questions.
-                5. **Ask Questions**: Type your question in the text box and press Enter to get an answer.
-                6. **Stop Chat**: Click the "Stop Video" button to reset the interface.
-                """
-            )
-
-        # Main interface
+        # Previous markdown and accordion sections remain the same
+        
         with gr.Row():
             with gr.Column():
-                # Current frame display
                 gr_frame_display = gr.Image(
                     label="Current Model Input Frame", interactive=False
                 )
-                # Current video time display
                 gr_time_display = gr.Number(label="Current Video Time", value=0)
-                # Pause and Stop buttons
                 with gr.Row():
                     gr_pause_button = gr.Button("Pause Video")
                     gr_stop_button = gr.Button("Stop Video", variant="stop")
 
             with gr.Column():
-                # Chat interface
-                gr_chat_interface = gr.Chatbot(label="Chat History")
-                gr_question_input = gr.Textbox(label="Ask your question")
+                gr_chat_interface = gr.Chatbot(type="messages", label="Chat History")
+                gr_question_input = gr.Textbox(label="Ask your question. Click enter to send the message")
                 gr_question_input.submit(
                     generate_answer,
-                    inputs=[
-                        gr_question_input,
-                        pixel_values_state,
-                    ],  # 使用 pixel_values_state
+                    inputs=[gr_question_input, pixel_values_state],
                     outputs=gr_chat_interface,
+                    queue=True,
                 )
 
-        # Frame interval control
         gr_frame_interval = gr.Slider(
             minimum=0.1,
             maximum=10,
             step=0.1,
-            value=1,
+            value=0.5,
             interactive=True,
             label="Frame Interval (sec)",
         )
 
-        # Start button
         gr_start_button = gr.Button("Start Chat")
 
-        # Start chat function
+        # Start chat function connection remains the same
         gr_start_button.click(
             start_chat,
             inputs=[
@@ -272,10 +287,14 @@ def build_ui():
             ],
         )
 
-        # Pause button logic
-        gr_pause_button.click(toggle_pause, inputs=[], outputs=gr_pause_button)
+        # Modified pause button connection
+        gr_pause_button.click(
+            toggle_pause,
+            inputs=[],
+            outputs=[gr_pause_button, gr_chat_interface]  # Add chat interface to outputs
+        )
 
-        # Stop button logic
+        # Stop button connection remains the same
         gr_stop_button.click(
             stop_chat,
             inputs=[],
@@ -288,6 +307,7 @@ def build_ui():
         )
 
     return demo
+
 
 
 # Run the interface

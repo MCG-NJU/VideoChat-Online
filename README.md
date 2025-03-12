@@ -59,7 +59,16 @@ To install the necessary dependencies, use the following commands:
 conda create -n your_env python=3.9
 pip install -r requirements.txt
 ```
+# 🎥 Demo
+
+To launch the demo, use the following script:
+
+```bash
+bash gradio_demo.sh
+```
+
 # 📦 Offline Data Preparation
+
 The anno_data file provides the paths for different types of datasets:
 
 ```json
@@ -96,13 +105,6 @@ bash shell/online_4b/videochat_online_4b_stage1_ft.sh
 #Online & Offline Joint SFT:
 bash shell/online_4b/videochat_online_4b_stage2_ft.sh
 ```
-# 🎥 Demo
-To launch the demo, use the following script:
-
-```bash
-bash gradio_demo.sh
-```
-
 # 📊 Evaluation on [OVBench](https://huggingface.co/datasets/MCG-NJU/OVBench)
 
 ```bash

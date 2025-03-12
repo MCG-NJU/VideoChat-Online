@@ -575,7 +575,6 @@ class VideoChatOnline_IT(PreTrainedModel):
             image_bs = pixel_values.shape[0]
             print(f"dynamic ViT batch size: {image_bs}")
         query += add_generation_prompt
-        print(query)
 
         def tokens_arrange(num_frames, intervals, scale_ratio):
             scale = []
@@ -595,8 +594,6 @@ class VideoChatOnline_IT(PreTrainedModel):
                 IMG_START_TOKEN + IMG_CONTEXT_TOKEN * num_image_tokens + IMG_END_TOKEN
             )
             query = query.replace("<image>", image_tokens, 1)
-        print(query)
-        print(num_image_tokens_list, num_patches_list)
         model_inputs = tokenizer(query, return_tensors="pt")
         input_ids = model_inputs["input_ids"].to(self.device)  # .cuda()
         attention_mask = model_inputs["attention_mask"].to(self.device)  # .cuda()
@@ -655,7 +652,6 @@ class VideoChatOnline_IT(PreTrainedModel):
             input_ids = input_ids.reshape(B * N)
             selected = input_ids == self.img_context_token_id
             assert selected.sum() != 0
-            print(input_embeds[selected].shape, vit_embeds.reshape(-1, C).shape)
             input_embeds[selected] = vit_embeds.reshape(-1, C).to(input_embeds.device)
 
             input_embeds = input_embeds.reshape(B, N, C)
