@@ -13,9 +13,6 @@
   <a href="https://videochat-online.github.io/"><img src="https://img.shields.io/badge/🏆%20Leaderboard-Ranking-8b5cf6" alt="Leaderboard"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License"></a>
 </p>
-<p align="center">
-    <img src="assets/comparison.png" width="128000px" style="margin: 20px 0">
-</p>
 
 
 
@@ -47,18 +44,35 @@ A novel training strategy designed for online video streams:
 - **Interleaved Dialogue Tuning**: Combines offline video data with online instruction tuning in a dialogue format.  
 - **Progressive Learning**: Bridges offline and online video understanding, enhancing real-time adaptability.  
 
+<div style="text-align: center;">
+    <div style="display: inline-block; margin-right: 10px;">
+        <img src="assets/spatial_perception.png" alt="image-20250311180653255" style="zoom: 15%;" />
+    </div>
+    <div style="display: inline-block;">
+        <img src="assets/past_memory.png" alt="image-20250311184752494" style="zoom: 15%;" />
+    </div>
+        <div style="display: inline-block;">
+        <img src="assets/comparison.png" alt="image-202503111847524942" style="zoom: 15%;" />
+    </div>
+</div>
+
+
 ## To-Do
 
 - [ ] Model checkpoint Upload
 - [ ] More comprehensive demo
 
-# 🛠️ Installation
-To install the necessary dependencies, use the following commands:
+# 🏆 OVBench Leaderboard 
 
-```bash
-conda create -n your_env python=3.9
-pip install -r requirements.txt
-```
+See our leaderboard [here](https://videochat-online.github.io/#leaderboard)
+## Evaluate your model
+We use lmms-eval (todo).
+
+## Submit the results
+
+Write a emall to xinhaoli00@outlook.com with your result.json or open a issue in this repo.
+
+
 # 🎥 Demo
 
 To launch the demo, use the following script:
@@ -69,6 +83,13 @@ https://github.com/user-attachments/assets/4cdc3e57-3dae-4656-8366-a10cc6648884
 
 ```bash
 bash gradio_demo.sh
+```
+# 🛠️ Installation
+To install the necessary dependencies, use the following commands:
+
+```bash
+conda create -n your_env python=3.9
+pip install -r requirements.txt
 ```
 
 # 📦 Offline Data Preparation
@@ -88,7 +109,7 @@ For specific data json format, we support the data reading formats of `LLaVA` an
 
 For the construction format of online data, please refer to [VideoChatOnline-IT](https://huggingface.co/datasets/MCG-NJU/VideoChatOnline-IT)
 
-# 📈 Evaluations Results on  VideoChatOnline-4B
+# 📈 Evaluations Results of  VideoChatOnline-4B on Long Video Benchmarks
 | Benchmark          | Result                                                 |
 |--------------------|--------------------------------------------------------|
 | **OVBench**        | 54.9                                                   |
@@ -118,11 +139,4 @@ bash shell/eval/online_bench_sliding_window.sh
 bash shell/eval/online_bench_stream.sh
 ```
 
-<div style="text-align: center;">
-    <div style="display: inline-block; margin-right: 10px;">
-        <img src="assets/spatial_perception.png" alt="image-20250311180653255" style="zoom: 28%;" />
-    </div>
-    <div style="display: inline-block;">
-        <img src="assets/past_memory.png" alt="image-20250311184752494" style="zoom: 33%;" />
-    </div>
-</div>
+
