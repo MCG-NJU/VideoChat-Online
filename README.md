@@ -9,7 +9,7 @@
 <p align="center">
   <a href="https://arxiv.org/abs/2501.00584"><img src="https://img.shields.io/badge/arXiv-2501.00584-b31b1b.svg" alt="arXiv"></a>
   <a href="https://huggingface.co/datasets/MCG-NJU/VideoChatOnline-IT"><img src="https://img.shields.io/badge/🤗%20Dataset-VideoChatOnline--IT-ffca28" alt="Dataset"></a>
-  <a href="https://huggingface.co/datasets/MCG-NJU/VideoChatOnline"><img src="https://img.shields.io/badge/🤗%20Model-VideoChatOnline-4dc0b0" alt="Model"></a>
+  <a href="https://huggingface.co/datasets/MCG-NJU/VideoChatOnline-4B"><img src="https://img.shields.io/badge/🤗%20Model-VideoChatOnline-4dc0b0" alt="Model"></a>
   <a href="https://videochat-online.github.io/"><img src="https://img.shields.io/badge/🏆%20Leaderboard-Ranking-8b5cf6" alt="Leaderboard"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License"></a>
 </p>
@@ -59,8 +59,8 @@ A novel training strategy designed for online video streams:
 
 ## To-Do
 
-- [ ] Model checkpoint Upload
-- [ ] More comprehensive demo
+- [x] Model checkpoint Upload
+- [ ] A more interactive demo
 
 # 🏆 OVBench Leaderboard 
 
@@ -70,7 +70,7 @@ We use lmms-eval (todo).
 
 ## Submit the results
 
-Write a emall to xinhaoli00@outlook.com with your result.json or open a issue in this repo.
+Write an email to xinhaoli00@outlook.com with your result.json or open an issue in this repo.
 
 
 # 🎥 Demo
@@ -103,7 +103,7 @@ The anno_data file provides the paths for different types of datasets:
 },
 ...
 ```
-For specific data json format, we support the data reading formats of `LLaVA` and `VideoChat2-IT`.
+We support the data reading formats `LLaVA` and `VideoChat2-IT` for specific data JSON formats.
 
 # 🔄 [Online SFT Data](https://huggingface.co/datasets/MCG-NJU/VideoChatOnline-IT) Download
 
@@ -117,7 +117,7 @@ For the construction format of online data, please refer to [VideoChatOnline-IT]
 | **MVBench**        | 65.2                                                   |
 | **EgoSchema** | 54.7                                                   |
 | **MLVU**           | 60.8                                                   |
-| **LongVideoBench** | 53.6                                                   |
+| **LongVideoBench** | 54.1                                                   |
 
 
 # 🚀 Training
