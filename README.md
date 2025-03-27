@@ -9,7 +9,7 @@
 <p align="center">
   <a href="https://arxiv.org/abs/2501.00584"><img src="https://img.shields.io/badge/arXiv-2501.00584-b31b1b.svg" alt="arXiv"></a>
   <a href="https://huggingface.co/datasets/MCG-NJU/VideoChatOnline-IT"><img src="https://img.shields.io/badge/🤗%20Dataset-VideoChatOnline--IT-ffca28" alt="Dataset"></a>
-  <a href="https://huggingface.co/datasets/MCG-NJU/VideoChatOnline-4B"><img src="https://img.shields.io/badge/🤗%20Model-VideoChatOnline-4dc0b0" alt="Model"></a>
+  <a href="https://huggingface.co/MCG-NJU/VideoChatOnline-4B"><img src="https://img.shields.io/badge/🤗%20Model-VideoChatOnline-4dc0b0" alt="Model"></a>
   <a href="https://videochat-online.github.io/"><img src="https://img.shields.io/badge/🏆%20Leaderboard-Ranking-8b5cf6" alt="Leaderboard"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License"></a>
 </p>
@@ -70,7 +70,7 @@ We use lmms-eval (todo).
 
 ## Submit the results
 
-Write an email to xinhaoli00@outlook.com with your result.json or open an issue in this repo.
+Email xinhaoli00@outlook.com with your result.json or open an issue in this repo.
 
 
 # 🎥 Demo
