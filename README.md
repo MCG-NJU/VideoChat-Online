@@ -62,6 +62,8 @@ A novel training strategy designed for online video streams:
 - [x] Model checkpoint Upload
 - [ ] A more interactive demo
 
+---
+
 # 🏆 OVBench Leaderboard 
 
 See our leaderboard [here](https://videochat-online.github.io/#leaderboard)
@@ -72,26 +74,31 @@ See our leaderboard [here](https://videochat-online.github.io/#leaderboard)
 
 Evaluation of Existing Models on OVBench Using [lmms_eval](https://github.com/EvolvingLMMs-Lab/lmms-eval).
 
-### Preparatory Steps
+#### Preparatory Steps
 
 - Environment Setup: Ensure that all dependencies required by [lmms_eval](https://github.com/EvolvingLMMs-Lab/lmms-eval) are properly installed.
 
 - Please perform a global search for the field `/path_to_your` in the lmms-eval-ovbench directory and replace it with the corresponding file path on your local system.
 
-### Predefined Model Evaluation
+#### Predefined Model Evaluation
 
 - Execute the script `lmms-eval-ovbench/scripts/eval_models/eval_internvl2-8B.sh` to initiate the benchmark evaluation.
 
-### Custom Model Evaluation
+#### Custom Model Evaluation
 
 - Given that the video data used in this benchmark consists of both image sequences and video clips, it is necessary to utilize the `lmms-eval-ovbench/llava/video_utils.py` to read video data correctly.
 
 - You may refer to the implementation of the `load_video` function in `lmms-eval-ovbench/lmms_eval/models/internvl2.py` as a guideline. Integrate this function into your custom model as needed to enable compatibility with the lmms_eval evaluation framework.
 
 
+
+
 ## Submit the results
 
 Email xinhaoli00@outlook.com with your result.json or open an issue in this repo.
+
+
+---
 
 
 # 🎥 Demo
@@ -113,6 +120,8 @@ conda create -n your_env python=3.9
 pip install -r requirements.txt
 ```
 
+---
+
 # 📦 Offline Data Preparation
 
 The anno_data file provides the paths for different types of datasets:
@@ -125,6 +134,8 @@ The anno_data file provides the paths for different types of datasets:
 ...
 ```
 We support the data reading formats `LLaVA` and `VideoChat2-IT` for specific data JSON formats.
+
+---
 
 # 🔄 [Online SFT Data](https://huggingface.co/datasets/MCG-NJU/VideoChatOnline-IT) Download
 
@@ -140,6 +151,7 @@ For the construction format of online data, please refer to [VideoChatOnline-IT]
 | **MLVU**           | 60.8                                                   |
 | **LongVideoBench** | 54.1                                                   |
 
+---
 
 # 🚀 Training
 To run the training, execute the following bash commands for different stages:
@@ -151,6 +163,9 @@ bash shell/online_4b/videochat_online_4b_stage1_ft.sh
 #Online & Offline Joint SFT:
 bash shell/online_4b/videochat_online_4b_stage2_ft.sh
 ```
+
+---
+
 # 📊 Evaluation on [OVBench](https://huggingface.co/datasets/MCG-NJU/OVBench)
 
 ```bash
