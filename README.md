@@ -65,8 +65,29 @@ A novel training strategy designed for online video streams:
 # 🏆 OVBench Leaderboard 
 
 See our leaderboard [here](https://videochat-online.github.io/#leaderboard)
+
+
 ## Evaluate your model
-We use lmms-eval (todo).
+
+
+Evaluation of Existing Models on OVBench Using [lmms_eval](https://github.com/EvolvingLMMs-Lab/lmms-eval).
+
+### Preparatory Steps
+
+- Environment Setup: Ensure that all dependencies required by [lmms_eval](https://github.com/EvolvingLMMs-Lab/lmms-eval) are properly installed.
+
+- Please perform a global search for the field `/path_to_your` in the lmms-eval-ovbench directory and replace it with the corresponding file path on your local system.
+
+### Predefined Model Evaluation
+
+- Execute the script `lmms-eval-ovbench/scripts/eval_models/eval_internvl2-8B.sh` to initiate the benchmark evaluation.
+
+### Custom Model Evaluation
+
+- Given that the video data used in this benchmark consists of both image sequences and video clips, it is necessary to utilize the `lmms-eval-ovbench/llava/video_utils.py` to read video data correctly.
+
+- You may refer to the implementation of the `load_video` function in `lmms-eval-ovbench/lmms_eval/models/internvl2.py` as a guideline. Integrate this function into your custom model as needed to enable compatibility with the lmms_eval evaluation framework.
+
 
 ## Submit the results
 
