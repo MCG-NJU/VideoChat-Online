@@ -78,7 +78,7 @@ Evaluation of Existing Models on OVBench Using [lmms_eval](https://github.com/Ev
 
 - Environment Setup: Ensure that all dependencies required by [lmms_eval](https://github.com/EvolvingLMMs-Lab/lmms-eval) are properly installed.
 
-- Please perform a global search for the field `/path_to_your` in the lmms-eval-ovbench directory and replace it with the corresponding file path on your local system.
+- Please perform a global search for the field `/path_to_your` in the `./lmms-eval-ovbench` directory and replace it with the corresponding file path on your local system.
 
 #### Predefined Model Evaluation
 
