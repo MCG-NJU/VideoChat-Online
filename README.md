@@ -35,6 +35,8 @@ To tackle the challenges of infinite video streams, we propose a **multi-layered
 2. **Progressive Abstraction**: As the layers progress, spatial resolution decays  while the temporal sampling rate grows proportionally, forming an abstract representation of fine-grained long-short-term patterns.
 3. **Dynamic Eviction**: A dynamic eviction mechanism detects temporal redundancy via similarity, combined with pooling for spatial compression, improving storage efficiency.
 
+**NOTE: The currently open-sourced code implementation of ours constructs memory based on ViT features. We will provide the implementation that builds memory using KV-Cache features in subsequent updates.**
+
 ---
 
 🎯 **Offline-to-Online Learning Paradigm** 
